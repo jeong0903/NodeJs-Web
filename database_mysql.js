@@ -1,11 +1,11 @@
-var mysql      = require('mysql');
+var mysql = require("mysql");
 var conn = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'admin1234',
-  database : 'o2'
+  host: "localhost",
+  user: "root",
+  password: "admin1234",
+  database: "o2",
 });
- 
+
 conn.connect();
 
 // var sql = 'SELECT * FROM topic'
@@ -19,14 +19,14 @@ conn.connect();
 //     }
 // });
 
-var sql = `INSERT INTO topic (title, description, author) 
-           VALUES(?, ?, ?)`;
-var params = ["Supervisor", "Watcher", "Gonzo"]
+var sql = `DELETE FROM topic 
+           WHERE id=? `;
+var params = [3];
 conn.query(sql, params, function (err, rows, fields) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(rows.insertId);
-    }
-})
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(rows.affectedRows);
+  }
+});
 conn.end();
