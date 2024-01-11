@@ -7,22 +7,26 @@ var conn = mysql.createConnection({
 });
  
 conn.connect();
- 
-// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//   if (error) throw error;
-//   console.log('The solution is: ', results[0].solution);
-// });
- 
-// connection.end();
 
-var sql = 'SELECT * FROM topic'
-conn.query(sql, function (err, rows, fields) {
-    if(err){
+// var sql = 'SELECT * FROM topic'
+// conn.query(sql, function (err, rows, fields) {
+//     if(err){
+//         console.log(err);
+//     } else {
+//         for (var i = 0; i < rows.length; i++){
+//             console.log(rows[i].author);
+//         }
+//     }
+// });
+
+var sql = `INSERT INTO topic (title, description, author) 
+           VALUES(?, ?, ?)`;
+var params = ["Supervisor", "Watcher", "Gonzo"]
+conn.query(sql, params, function (err, rows, fields) {
+    if (err) {
         console.log(err);
     } else {
-        console.log('rows', rows);
-        console.log('fields', fields);
+        console.log(rows.insertId);
     }
-});
-
+})
 conn.end();
